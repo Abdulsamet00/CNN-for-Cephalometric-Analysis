@@ -23,7 +23,7 @@ gauth = GoogleAuth()
 gauth.credentials = GoogleCredentials.get_application_default()
 drive = GoogleDrive(gauth)
 
-link='https://drive.google.com/file/d/id=1GHdyjXd5RYko5wayH1fgj1pTQiZcLY28'
+link='' #link of the csv file
 fluff, id = link.split('=')
 print (id)
 
@@ -40,7 +40,7 @@ from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 from keras.preprocessing.image import ImageDataGenerator
 from keras_preprocessing.image import ImageDataGenerator,load_img,img_to_array
-#courseradan
+
 from keras.optimizers import SGD,Adam
 import numpy as np
 from keras import layers
@@ -66,16 +66,16 @@ downloaded.GetContentFile('Filename.csv')
 # Commented out IPython magic to ensure Python compatibility.
 # %matplotlib inline
 
-#train=pd.read_csv('train2.csv') #one-hot encoded columns
+
 train = pd.read_csv('Filename.csv')
-train.head(25) # ilk 25 datayı verir.
-print(train.columns) # başlıkları verr
-print(train.dtypes) #sütunların tiplerini verir
-print(train.shape) #340,5 yani 340 tane satır 5 tane sütun var
+train.head(25) 
+print(train.columns) 
+print(train.dtypes) 
+print(train.shape) 
 
 train_image = []
 for i in tqdm(range(train.shape[0])):
-    img = image.load_img('/content/gdrive/My Drive/ceph/datasetorginal/' + train['Id'][i]+'.bmp',target_size=(400,400))
+    img = image.load_img('' + train['Id'][i]+'.bmp',target_size=(400,400)) # file path of dataset
     img = image.img_to_array(img)
     img = img/255
     train_image.append(img)
@@ -170,7 +170,7 @@ model.compile(Adam(lr=0.001),loss='binary_crossentropy', metrics=['accuracy'])
 
 model.fit(final_train, final_target_train, epochs=20, validation_data=(X_test, y_test), batch_size=60)
 
-test_img=image.load_img('/content/gdrive/My Drive/ceph/test1/367.bmp',target_size=(400,400,1))
+test_img=image.load_img('/content/gdrive/My Drive/ceph/test1/367.bmp',target_size=(400,400,1)) # file path of test set 
 test_img=image.img_to_array(test_img)
 test_img=test_img/255
 print(train.columns[2:])
