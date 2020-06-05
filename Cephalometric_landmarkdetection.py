@@ -56,13 +56,8 @@ gauth = GoogleAuth()
 gauth.credentials = GoogleCredentials.get_application_default()
 drive = GoogleDrive(gauth)
 
-#link='https://drive.google.com/file/d/id=1kgmvIC9vfXiFz9MfGW7-srKGB365ipFy'
-#link='https://drive.google.com/file/d/id=16pL5_M4Cvpi72bcWFQfmlh6q8mBwdD5h' # b noktası için landmark
-#link='https://drive.google.com/file/d/id=1LD60_VGOcSZc5td7RtEfRwp4vFnyZo61'
-#link='https://drive.google.com/file/d/id=1zGvspTNfWPtJHdSDJh49IfdqtSKPxRnR' # 192,192 resim için
-#link='https://drive.google.com/file/d/id=1_5zFy_KVG1Hd0FGXQAPS8_VLDRf9YVSx' # 400 tane resim için b noktası
-link='https://drive.google.com/file/d/id=14h4sv4kgItHH0oSEFSl7J2bzwbq5ZS8Z' # 400 resim için S noktası
-#link='https://drive.google.com/file/d/id=1uNa4LKtZoF8c83lljBvg4uOou7DhUMSz' # B ve S noktası birarada 
+
+link='' # csv file link which includes x,y coordinates of cephalometric landmarks
 fluff, id = link.split('=')
 
 downloaded = drive.CreateFile({'id':id}) 
@@ -75,7 +70,7 @@ LMpos=LMs.columns.tolist()
 print(LMs.shape[0])
 
 y=np.array(LMs.drop(['Id'],axis=1)) #bu bizim labeller
-y.shape #340 tane resim var ve 3 tane ayrı label var yani 3 ayrı sonuç
+y.shape 
 print(y.shape)
 
 train_image = []
@@ -112,10 +107,9 @@ X=np.zeros((m,Spic,Spic,1))
 Y=np.zeros((m,2))
 
 X[:,:,:,0]=img2[iselect,:,:]/255.0
-#Y[:,0]=LMs.B_x[iselect]/Spic
-#Y[:,1]=LMs.B_y[iselect]/Spic
-Y[:,0]=LMs.S_x[iselect]/Spic
-Y[:,1]=LMs.S_y[iselect]/Spic
+Y[:,0]=LMs.B_x[iselect]/Spic
+Y[:,1]=LMs.B_y[iselect]/Spic
+
 
 import matplotlib.pyplot as plt
 
